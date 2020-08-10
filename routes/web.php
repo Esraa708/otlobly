@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('register/facebook', 'Auth\RegisterController@redirectToProvider');
+Route::get('register/facebook/callback', 'Auth\RegisterController@handleProviderCallback');
+Route::get('register/google', 'Auth\RegisterController@redirectToProviderGoogle');
+Route::get('register/google/callback', 'Auth\RegisterController@handleProviderCallbackGoogle');
