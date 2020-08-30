@@ -24,3 +24,17 @@ Route::get('register/facebook', 'Auth\RegisterController@redirectToProvider');
 Route::get('register/facebook/callback', 'Auth\RegisterController@handleProviderCallback');
 Route::get('register/google', 'Auth\RegisterController@redirectToProviderGoogle');
 Route::get('register/google/callback', 'Auth\RegisterController@handleProviderCallbackGoogle');
+//login with facebook and google
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallbackGoogle');
+// Route::get('friends',)
+Route::resource('friends', 'friendController')->except([
+    'update'
+]);
+Route::fallback(function () {
+    return response([
+        'message' => 'hhhmmm so sorry you are requesting a wrong page'
+    ], 404);
+});
