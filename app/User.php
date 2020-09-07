@@ -46,6 +46,9 @@ class User extends Authenticatable
     }
     public function groups()
     {
-        return $this->belongsToMany('App\Group');
+        return $this->hasMany('App\Group');
+    }
+    public function groupsForFriends(){
+        return $this->belongsToMany('App\Group', 'group_friend','friend_id','group_id');
     }
 }

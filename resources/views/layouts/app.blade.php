@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
 
 </head>
@@ -46,7 +47,7 @@
                             <a class="nav-link" href="{{url('friends/create') }}">{{ __('Friends') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('home') }}">{{ __('Groups') }}</a>
+                            <a class="nav-link" href="{{url('groups/create') }}">{{ __('Groups') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('home') }}">{{ __('Orders') }}</a>

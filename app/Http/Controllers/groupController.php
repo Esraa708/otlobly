@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FriendRequest;
-use App\User;
+use App\Group;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class friendController extends Controller
+class groupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +14,11 @@ class friendController extends Controller
      */
     public function index()
     {
-        $userFriends = Auth::user()->friends;
-
-        // dd(storage_path());
-        return response(['friends' => $userFriends]);
+        $groups = auth()->user()->groups;
+        return response(['groups' => $groups]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +27,7 @@ class friendController extends Controller
      */
     public function create()
     {
-        return view('friends');
+        return view("groupes");
     }
 
     /**
@@ -38,21 +36,11 @@ class friendController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FriendRequest $request)
+    public function store(Request $request)
     {
-
-        if (User::where('email', $request->email)->exists() && (auth()->user()->email != $request->email)) {
-            $user = User::where('email', $request->email)->first();
-            $userFriends = Auth::user()->friends()->pluck('friend_id');
-            if ($userFriends->contains($user->id)) {
-                return response(['message' => 'you are already friends'], 404);
-            } else {
-                Auth::user()->friends()->attach($user->id);
-                return response('friend added successfully', 200);
-            }
-        } else {
-            return response(['message' => 'couldnt find this email please add a valid email'], 404);
-        }
+        $group = new Group(['name' => $request->name]);
+        auth()->user()->groups()->save($group);
+        return response('group id added successfully', 200);
     }
 
     /**
@@ -97,11 +85,6 @@ class friendController extends Controller
      */
     public function destroy($id)
     {
-        auth()->user()->friends()->detach($id);
-        $userGroups = auth()->user()->groups;
-        foreach ($userGroups as $group) {
-            $group->friends()->detach($id);
-        }
-        return response('unfriend successfully', 200);
+        Group::destroy($id);
     }
 }

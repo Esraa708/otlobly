@@ -18,7 +18,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('register/facebook', 'Auth\RegisterController@redirectToProvider');
 Route::get('register/facebook/callback', 'Auth\RegisterController@handleProviderCallback');
@@ -33,6 +32,11 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback
 Route::resource('friends', 'friendController')->except([
     'update'
 ]);
+Route::resource('groups', 'groupController')->except([
+    'update'
+]);
+Route::post('/addfriendtogroup', "GropupFreindsController@store");
+Route::get('getGroupFriends/{id}', "GropupFreindsController@index");
 Route::fallback(function () {
     return response([
         'message' => 'hhhmmm so sorry you are requesting a wrong page'

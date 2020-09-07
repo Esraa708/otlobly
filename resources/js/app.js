@@ -21,6 +21,9 @@ import vuetify from './vuetify'
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('friends', require('./components/friendsComponent.vue').default);
+Vue.component('groups', require('./components/groupesComponent').default);
+Vue.component('single-friend', require('./components/singleFriendComponent').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
