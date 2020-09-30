@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
     public function friends()
     {
-        return $this->belongsToMany('App\User', 'user_friend','user_id','friend_id');
+        return $this->belongsToMany('App\User', 'user_friend', 'user_id', 'friend_id');
     }
     public function users()
     {
@@ -48,7 +48,21 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Group');
     }
-    public function groupsForFriends(){
-        return $this->belongsToMany('App\Group', 'group_friend','friend_id','group_id');
+    //friends groups
+    public function groupsForFriends()
+    {
+        return $this->belongsToMany('App\Group', 'group_friend', 'friend_id', 'group_id');
     }
+    //order friend relation
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order', 'order_friend', 'friend_id', 'order_id');
+    }
+
+ //order owner relation
+    public function manyOrders()
+    {
+        return $this->hasMany('App\Order', 'order_owner_id');
+    }
+   
 }

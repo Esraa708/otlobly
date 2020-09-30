@@ -12,7 +12,18 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <!-- <script src="{{ asset('js/echo.js') }}"></script> -->
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script defer>
+        Pusher.logToConsole = true;
+      
+        @if(Auth::check())
+        Echo.private('order.{{ Auth::user()->id }}')
+            .listen('createOrder', (e) => {
+                console.log(e);
+            });
+        @endif
+    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -50,7 +61,7 @@
                             <a class="nav-link" href="{{url('groups/create') }}">{{ __('Groups') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('home') }}">{{ __('Orders') }}</a>
+                            <a class="nav-link" href="{{url('allorders') }}">{{ __('Orders') }}</a>
                         </li>
                     </ul>
 
@@ -98,6 +109,8 @@
             @yield('content')
         </main>
     </div>
+    <!-- <script src="node_modules/laravel-echo/dist/echo.js"></script> -->
+
 </body>
 
 </html>

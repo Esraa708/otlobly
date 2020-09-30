@@ -17,4 +17,8 @@ class Group extends Model
     {
         return $this->belongsToMany('App\User', 'group_friend', 'group_id', 'friend_id');
     }
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order', 'order_group', 'group_id', 'order_id');
+    }
 }

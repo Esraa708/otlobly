@@ -88,6 +88,10 @@ class friendController extends Controller
     {
         //
     }
+    public function friendsNotInGroups(){
+        $friends=auth()->user()->friends()->doesntHave('groupsForFriends')->get();
+        return response(['friendsNoGroup'=> $friends],200);
+    }
 
     /**
      * Remove the specified resource from storage.

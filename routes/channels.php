@@ -1,5 +1,6 @@
 <?php
 
+use App\Order;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -14,5 +15,9 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});
+Broadcast::channel('order.{id}', function ($user, $id) {
+    // return (int) $user->id === (int) $order->order_owner_id;
     return (int) $user->id === (int) $id;
 });
